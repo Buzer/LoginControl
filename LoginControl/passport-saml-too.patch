@@ -1,0 +1,65 @@
+diff -ur LoginControl2/node_modules/passport-saml-too/lib/passport-saml/saml.js LoginControl/node_modules/passport-saml-too/lib/passport-saml/saml.js
+--- LoginControl2/node_modules/passport-saml-too/lib/passport-saml/saml.js	2013-12-30 20:58:17.000000000 +0100
++++ LoginControl/node_modules/passport-saml-too/lib/passport-saml/saml.js	2014-05-15 20:37:29.707752287 +0200
+@@ -196,7 +196,8 @@
+       return "<X509Data></X509Data>";
+     },
+     getKey: function (keyInfo) {
+-      return self.certToPEM(cert);
++//      return self.certToPEM(cert);
++      return cert;
+     }
+   };
+   sig.loadSignature(signature);
+@@ -208,6 +209,10 @@
+     return parentElement['saml:' + elementName];
+   } else if (parentElement['samlp:'+elementName]) {
+     return parentElement['samlp:'+elementName];
++  } else if (parentElement['saml2:' + elementName]) {
++    return parentElement['saml2:' + elementName];
++  } else if (parentElement['saml2p:'+elementName]) {
++    return parentElement['saml2p:'+elementName];
+   }
+   return parentElement[elementName];
+ };
+Only in LoginControl2/node_modules/passport-saml-too/lib/passport-saml: saml.js.orig
+Only in LoginControl2/node_modules/passport-saml-too/lib/passport-saml: saml.js.rej
+diff -ur LoginControl2/node_modules/passport-saml-too/node_modules/xml-crypto/lib/exclusive-canonicalization.js LoginControl/node_modules/passport-saml-too/node_modules/xml-crypto/lib/exclusive-canonicalization.js
+--- LoginControl2/node_modules/passport-saml-too/node_modules/xml-crypto/lib/exclusive-canonicalization.js	2014-01-08 19:33:11.000000000 +0100
++++ LoginControl/node_modules/passport-saml-too/node_modules/xml-crypto/lib/exclusive-canonicalization.js	2014-05-15 18:39:12.272871058 +0200
+@@ -13,8 +13,8 @@
+ };
+ 
+ ExclusiveCanonicalization.prototype.nsCompare = function(a,b) {
+-  var attr1 = a.prefix+a.namespaceURI;
+-  var attr2 = b.prefix+b.namespaceURI;
++  var attr1 = a.prefix;
++  var attr2 = b.prefix;
+   if (attr1 == attr2) return 0;
+   return attr1.localeCompare(attr2);
+ };
+Only in LoginControl2/node_modules/passport-saml-too/node_modules/xml-crypto/lib: exclusive-canonicalization.js.orig
+Only in LoginControl2/node_modules/passport-saml-too/node_modules/xml-crypto/lib: exclusive-canonicalization.js.rej
+diff -ur LoginControl2/node_modules/passport-saml-too/node_modules/xml-crypto/lib/utils.js LoginControl/node_modules/passport-saml-too/node_modules/xml-crypto/lib/utils.js
+--- LoginControl2/node_modules/passport-saml-too/node_modules/xml-crypto/lib/utils.js	2014-05-15 20:46:59.878132769 +0200
++++ LoginControl/node_modules/passport-saml-too/node_modules/xml-crypto/lib/utils.js	2014-05-15 20:34:30.775239641 +0200
+@@ -39,7 +39,8 @@
+ 
+ var xml_special_to_escaped_one_map = {
+     '&': '&amp;',
+-    '"': '&quot;',
++//    '"': '&quot;',
++    '"': '"',
+     '<': '&lt;',
+     '>': '&gt;',
+     '\r': '&#xD;'
+@@ -47,7 +48,8 @@
+  
+ var escaped_one_to_xml_special_map = {
+     '&amp;': '&',
+-    '&quot;': '"',
++//    '&quot;': '"',
++    '&quot;': '&quot;',
+     '&lt;': '<',
+     '&gt;': '>',
+     '&#xD;': '\r'

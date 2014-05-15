@@ -1,0 +1,36 @@
+var config = {};
+
+config.crypto = {};
+config.crypto.algo = 'aes192';
+config.crypto.keys = {
+    'mpd.example.org 'ABCDEF01222222222222'
+};
+
+config.saml = {};
+//Private key
+config.saml.privatekey = './pkey.pem';
+//Publicly visble protocol
+config.saml.protocol = 'https://';
+//SAML NameID format
+config.saml.identifierFormat = 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent';
+//Identity provider
+config.saml.idp = 'https://idp.example.org/idp/profile/SAML2/Redirect/SSO';
+//Can be anything. It will replace by the host with dots replaced by _ (e.g. mpd.example.org -> mpd_example_org)
+config.saml.issuer = 'example_test';
+
+//Prefix for paths
+config.pathprefix = '/login';
+
+//Secret for sessions
+config.sessionsecret = 'AAAAAAAAAAAAAAAAAAAAAAAA';
+//Are you using a proxy?
+config.useproxy = true;
+//Only allow https cookies? (NOTE! If you are using SSL terminator, please make sure it's sending proto header and useproxy has been enabled)
+config.securecookie = true;
+//Port
+config.port = 7917;
+
+//Mininum login packet length. Used in order to mask the length of role etc. data
+config.minlength = 51200;
+
+module.exports = config;

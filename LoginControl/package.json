@@ -1,0 +1,18 @@
+{
+  "name": "LoginControl",
+  "version": "0.0.0",
+  "description": "LoginControl",
+  "main": "server.js",
+  "author": {
+    "name": "buzer",
+    "email": ""
+  },
+  "dependencies": {
+    "body-parser": "^1.0.2",
+    "cookie-parser": "^1.0.1",
+    "express": "^4.1.2",
+    "passport": "^0.2.0",
+    "express-session": "^1.0.4",
+    "passport-saml-too": "0.0.6"
+  }
+}
